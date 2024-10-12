@@ -6,7 +6,7 @@ import '../common_widgets/alert_dialogs.dart';
 
 extension AsyncValueUi on AsyncValue {
   void showAlertDialogOnError(BuildContext context) {
-    if (!isLoading && hasError) {
+    if (!isRefreshing && hasError) {
       showExceptionAlertDialog(
         context: context,
         title: 'Error'.hardcoded,
