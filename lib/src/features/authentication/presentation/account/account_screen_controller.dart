@@ -7,12 +7,10 @@ class AccountScreenController extends AsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
 
-  Future<bool> signOut() async {
+  Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
         () => ref.read(authRepositoryProvider).signOut());
-
-    return state.hasError == false;
   }
 }
 
