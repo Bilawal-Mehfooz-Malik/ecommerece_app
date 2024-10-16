@@ -3,7 +3,7 @@ import 'package:ecommerce_app/src/features/products/data/fake_products_repositor
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('FakeAuthRepository', () {
+  group('FakeProductRepository', () {
     FakeProductsRepository makeProductRepository() =>
         FakeProductsRepository(addDelay: false);
     test('getProductsList returns Global list', () {
