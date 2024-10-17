@@ -6,13 +6,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen_controller.dart';
 
-class MockAuthRepository extends Mock implements FakeAuthRepository {}
-
-class Listener<T> extends Mock {
-  void call(T? previous, T next);
-}
+import '../../../../mocks.dart';
 
 void main() {
+  const data = AsyncData<void>(null);
+  final exception = Exception('Connection Failed!');
+
   late MockAuthRepository authRepository;
   late Listener<AsyncValue<void>> listener;
 
@@ -50,7 +49,6 @@ void main() {
       // setup
       final container = makeContainer(authRepository);
       when(authRepository.signOut).thenAnswer((_) => Future.value());
-      const data = AsyncData<void>(null);
       container.listen(
         accountScreenControllerProvider,
         listener,
@@ -75,9 +73,7 @@ void main() {
     test('signOut Failure', () async {
       // setup
       final container = makeContainer(authRepository);
-      final exception = Exception('Connection Failed!');
       when(authRepository.signOut).thenThrow(exception);
-      const data = AsyncData<void>(null);
       container.listen(
         accountScreenControllerProvider,
         listener,

@@ -7,16 +7,14 @@ import 'package:ecommerce_app/src/features/authentication/data/fake_auth_reposit
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_form_type.dart';
 
-class MockAuthRepository extends Mock implements FakeAuthRepository {}
-
-class Listener<T> extends Mock {
-  void call(T? previous, T next);
-}
+import '../../../../mocks.dart';
 
 void main() {
   const testEmail = 'test@test.com';
   const testPassword = '12345678';
-  late AsyncData<void> data;
+  const data = AsyncData<void>(null);
+  final exception = Exception('Connection Failed!');
+
   late MockAuthRepository authRepository;
   late Listener<AsyncValue<void>> listener;
 
@@ -29,7 +27,6 @@ void main() {
   }
 
   setUpAll(() {
-    data = const AsyncData<void>(null);
     authRepository = MockAuthRepository();
     listener = Listener<AsyncValue<void>>();
     registerFallbackValue(const AsyncLoading<void>());
@@ -74,7 +71,6 @@ void main() {
     And State is AsyncError''', () async {
       // setup
       final container = makeContainer(authRepository);
-      final exception = Exception('Connection Failed!');
       when(() => authRepository.signInWithEmailAndPassword(
           testEmail, testPassword)).thenThrow(exception);
       final controller =
@@ -140,7 +136,6 @@ void main() {
     And State is AsyncError''', () async {
       // setup
       final container = makeContainer(authRepository);
-      final exception = Exception('Connection Failed!');
       when(() => authRepository.createUserWithEmailAndPassword(
           testEmail, testPassword)).thenThrow(exception);
       final controller =
