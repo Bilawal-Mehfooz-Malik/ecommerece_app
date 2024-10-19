@@ -32,13 +32,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     debugLogDiagnostics: false,
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     redirect: (context, state) {
+      final path = state.uri.path;
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (state.location == '/signIn') {
+        if (path == '/signIn') {
           return '/';
         }
       } else {
-        if (state.location == '/account' || state.location == '/orders') {
+        if (path == '/account' || path == '/orders') {
           return '/';
         }
       }
@@ -54,7 +55,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             path: 'product/:id',
             name: AppRoute.product.name,
             builder: (context, state) {
-              final productId = state.params['id']!;
+              final productId = state.pathParameters['id']!;
               return ProductScreen(productId: productId);
             },
             routes: [
@@ -62,7 +63,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 path: 'review',
                 name: AppRoute.leaveReview.name,
                 pageBuilder: (context, state) {
-                  final productId = state.params['id']!;
+                  final productId = state.pathParameters['id']!;
                   return MaterialPage(
                     key: state.pageKey,
                     fullscreenDialog: true,
@@ -76,7 +77,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             path: 'cart',
             name: AppRoute.cart.name,
             pageBuilder: (context, state) => MaterialPage(
-              key: ValueKey(state.location),
+              key: ValueKey(state.uri.path),
               fullscreenDialog: true,
               child: const ShoppingCartScreen(),
             ),
@@ -85,7 +86,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 path: 'checkout',
                 name: AppRoute.checkout.name,
                 pageBuilder: (context, state) => MaterialPage(
-                  key: ValueKey(state.location),
+                  key: ValueKey(state.uri.path),
                   fullscreenDialog: true,
                   child: const CheckoutScreen(),
                 ),

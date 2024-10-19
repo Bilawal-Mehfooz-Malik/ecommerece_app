@@ -1,4 +1,6 @@
 @Timeout(Duration(seconds: 5))
+library;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -45,7 +47,7 @@ void main() {
           container.read(emailPasswordSignInControllerProvider.notifier);
       container.listen(
         emailPasswordSignInControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 
@@ -77,7 +79,7 @@ void main() {
           container.read(emailPasswordSignInControllerProvider.notifier);
       container.listen(
         emailPasswordSignInControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 
@@ -110,7 +112,7 @@ void main() {
           container.read(emailPasswordSignInControllerProvider.notifier);
       container.listen(
         emailPasswordSignInControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 
@@ -142,7 +144,7 @@ void main() {
           container.read(emailPasswordSignInControllerProvider.notifier);
       container.listen(
         emailPasswordSignInControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 

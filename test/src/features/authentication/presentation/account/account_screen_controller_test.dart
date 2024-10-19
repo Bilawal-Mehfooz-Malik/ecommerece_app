@@ -1,4 +1,6 @@
 @Timeout(Duration(seconds: 5))
+library;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -35,7 +37,7 @@ void main() {
       final container = makeContainer(authRepository);
       container.listen(
         accountScreenControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 
@@ -51,7 +53,7 @@ void main() {
       when(authRepository.signOut).thenAnswer((_) => Future.value());
       container.listen(
         accountScreenControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 
@@ -76,7 +78,7 @@ void main() {
       when(authRepository.signOut).thenThrow(exception);
       container.listen(
         accountScreenControllerProvider,
-        listener,
+        listener.call,
         fireImmediately: true,
       );
 
