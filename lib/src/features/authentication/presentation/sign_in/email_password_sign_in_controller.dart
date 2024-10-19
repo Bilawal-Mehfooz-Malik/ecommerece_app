@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_form_type.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class EmailPasswordSigInController extends AsyncNotifier<void> {
+part 'email_password_sign_in_controller.g.dart';
+
+@riverpod
+class EmailPasswordSigInController extends _$EmailPasswordSigInController {
   @override
   FutureOr<void> build() {}
 
@@ -31,7 +34,3 @@ class EmailPasswordSigInController extends AsyncNotifier<void> {
     }
   }
 }
-
-final emailPasswordSignInControllerProvider =
-    AsyncNotifierProvider<EmailPasswordSigInController, void>(
-        EmailPasswordSigInController.new);

@@ -67,7 +67,7 @@ class _EmailPasswordSignInContentsState
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       final controller =
-          ref.read(emailPasswordSignInControllerProvider.notifier);
+          ref.read(emailPasswordSigInControllerProvider.notifier);
       final success = await controller.submit(
         email: email,
         password: password,
@@ -101,10 +101,10 @@ class _EmailPasswordSignInContentsState
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue>(
-      emailPasswordSignInControllerProvider,
+      emailPasswordSigInControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    final state = ref.watch(emailPasswordSignInControllerProvider);
+    final state = ref.watch(emailPasswordSigInControllerProvider);
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,

@@ -44,9 +44,9 @@ void main() {
       when(() => authRepository.signInWithEmailAndPassword(
           testEmail, testPassword)).thenAnswer((_) => Future.value());
       final controller =
-          container.read(emailPasswordSignInControllerProvider.notifier);
+          container.read(emailPasswordSigInControllerProvider.notifier);
       container.listen(
-        emailPasswordSignInControllerProvider,
+        emailPasswordSigInControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -76,9 +76,9 @@ void main() {
       when(() => authRepository.signInWithEmailAndPassword(
           testEmail, testPassword)).thenThrow(exception);
       final controller =
-          container.read(emailPasswordSignInControllerProvider.notifier);
+          container.read(emailPasswordSigInControllerProvider.notifier);
       container.listen(
-        emailPasswordSignInControllerProvider,
+        emailPasswordSigInControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -109,9 +109,9 @@ void main() {
       when(() => authRepository.createUserWithEmailAndPassword(
           testEmail, testPassword)).thenAnswer((_) => Future.value());
       final controller =
-          container.read(emailPasswordSignInControllerProvider.notifier);
+          container.read(emailPasswordSigInControllerProvider.notifier);
       container.listen(
-        emailPasswordSignInControllerProvider,
+        emailPasswordSigInControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -141,9 +141,9 @@ void main() {
       when(() => authRepository.createUserWithEmailAndPassword(
           testEmail, testPassword)).thenThrow(exception);
       final controller =
-          container.read(emailPasswordSignInControllerProvider.notifier);
+          container.read(emailPasswordSigInControllerProvider.notifier);
       container.listen(
-        emailPasswordSignInControllerProvider,
+        emailPasswordSigInControllerProvider,
         listener.call,
         fireImmediately: true,
       );
