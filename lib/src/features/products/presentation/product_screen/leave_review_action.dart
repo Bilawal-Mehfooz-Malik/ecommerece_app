@@ -18,6 +18,8 @@ class LeaveReviewAction extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: Read from data source
     final purchase = Purchase(orderId: 'abc', orderDate: DateTime.now());
+
+    // ignore: unnecessary_null_comparison
     if (purchase != null) {
       // TODO: Inject date formatter
       final dateFormatted = kDateFormatter.format(purchase.orderDate);
@@ -38,7 +40,7 @@ class LeaveReviewAction extends StatelessWidget {
               text: 'Leave a review'.hardcoded,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1!
+                  .bodyLarge!
                   .copyWith(color: Colors.green[700]),
               onPressed: () => context.goNamed(
                 AppRoute.leaveReview.name,
