@@ -1,4 +1,5 @@
-import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -8,6 +9,7 @@ import 'package:ecommerce_app/src/features/cart/data/remote/remote_cart_reposito
 import 'package:ecommerce_app/src/features/cart/domain/cart.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/cart/domain/mutable_cart.dart';
+import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
 
 part 'cart_service.g.dart';
@@ -90,5 +92,18 @@ double cartTotal(CartTotalRef ref) {
     return total;
   } else {
     return 0.0;
+  }
+}
+
+@riverpod
+int itemAvailableQuantity(ItemAvailableQuantityRef ref, Product product) {
+  final cart = ref.watch(cartProvider).value;
+  if (cart != null) {
+    // get the current quantity for the given product in the cart
+    final quantity = cart.items[product.id] ?? 0;
+    // subtract it from the product available quantity
+    return max(0, product.availableQuantity - quantity);
+  } else {
+    return product.availableQuantity;
   }
 }
