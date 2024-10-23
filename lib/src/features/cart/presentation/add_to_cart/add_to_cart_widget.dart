@@ -1,23 +1,34 @@
 import 'dart:math';
 
-import 'package:ecommerce_app/src/common_widgets/alert_dialogs.dart';
-import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:ecommerce_app/src/utils/async_value_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ecommerce_app/src/common_widgets/item_quantity_selector.dart';
 import 'package:ecommerce_app/src/common_widgets/primary_button.dart';
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:ecommerce_app/src/features/cart/presentation/add_to_cart/add_to_cart_controller.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 
 /// A widget that shows an [ItemQuantitySelector] along with a [PrimaryButton]
 /// to add the selected quantity of the item to the cart.
-class AddToCartWidget extends StatelessWidget {
+class AddToCartWidget extends ConsumerWidget {
   const AddToCartWidget({super.key, required this.product});
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Read from data source
-    const availableQuantity = 5;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final availableQuantity = product.availableQuantity;
+    final state = ref.watch(addToCartControllerProvider);
+    final quantity = ref.watch(itemQuantityControllerProvider);
+    debugPrint(quantity.toString());
+
+    ref.listen<AsyncValue>(
+      addToCartControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -27,15 +38,13 @@ class AddToCartWidget extends StatelessWidget {
           children: [
             Text('Quantity:'.hardcoded),
             ItemQuantitySelector(
-              // TODO: plug in state
-              quantity: 1,
-              // let the user choose up to the available quantity or
-              // 10 items at most
+              quantity: quantity,
               maxQuantity: min(availableQuantity, 10),
-              // TODO: Implement onChanged
-              onChanged: (value) {
-                showNotImplementedAlertDialog(context: context);
-              },
+              onChanged: state.isLoading
+                  ? null
+                  : (value) => ref
+                      .read(itemQuantityControllerProvider.notifier)
+                      .updateQuantity(value),
             ),
           ],
         ),
@@ -43,12 +52,13 @@ class AddToCartWidget extends StatelessWidget {
         const Divider(),
         gapH8,
         PrimaryButton(
-          // TODO: Loading state
-          isLoading: false,
-          // TODO: Implement onPressed
-          onPressed: () {
-            showNotImplementedAlertDialog(context: context);
-          },
+          isLoading: state.isLoading,
+          // only enable this button if there is enough stock
+          onPressed: availableQuantity > 0
+              ? () => ref
+                  .read(addToCartControllerProvider.notifier)
+                  .addItem(product.id)
+              : null,
           text: availableQuantity > 0
               ? 'Add to Cart'.hardcoded
               : 'Out of Stock'.hardcoded,
