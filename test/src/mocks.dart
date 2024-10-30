@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
@@ -9,6 +10,8 @@ class MockAuthRepository extends Mock implements FakeAuthRepository {}
 class MockLocalCartRepository extends Mock implements LocalCartRepository {}
 
 class MockRemoteCartRepository extends Mock implements RemoteCartRepository {}
+
+class MockProductRepository extends Mock implements FakeProductsRepository {}
 
 class Listener<T> extends Mock {
   void call(T? previous, T next);
