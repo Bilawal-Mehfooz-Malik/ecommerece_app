@@ -1,18 +1,20 @@
 import 'dart:math';
 
-import 'package:ecommerce_app/src/common_widgets/async_value_widget.dart';
-import 'package:ecommerce_app/src/features/cart/presentation/shopping_cart/shopping_cart_screen_controller.dart';
-import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
-import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
-import 'package:ecommerce_app/src/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:ecommerce_app/src/common_widgets/async_value_widget.dart';
 import 'package:ecommerce_app/src/common_widgets/custom_image.dart';
 import 'package:ecommerce_app/src/common_widgets/item_quantity_selector.dart';
 import 'package:ecommerce_app/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
+import 'package:ecommerce_app/src/features/cart/presentation/shopping_cart/shopping_cart_screen_controller.dart';
+import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:ecommerce_app/src/utils/currency_formatter.dart';
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 
 /// Shows a shopping cart item (or loading/error UI if needed)
 class ShoppingCartItem extends ConsumerWidget {
@@ -83,9 +85,9 @@ class ShoppingCartItemContents extends ConsumerWidget {
       endContent: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(product.title, style: Theme.of(context).textTheme.headlineSmall),
+          Text(product.title, style: context.textTheme.headlineSmall),
           gapH24,
-          Text(priceFormatted, style: Theme.of(context).textTheme.headlineSmall),
+          Text(priceFormatted, style: context.textTheme.headlineSmall),
           gapH24,
           isEditable
               // show the quantity selector and a delete button
@@ -97,9 +99,7 @@ class ShoppingCartItemContents extends ConsumerWidget {
               // else, show the quantity as a read-only label
               : Padding(
                   padding: const EdgeInsets.symmetric(vertical: Sizes.p8),
-                  child: Text(
-                    'Quantity: ${item.quantity}'.hardcoded,
-                  ),
+                  child: Text('Quantity: ${item.quantity}'.hardcoded),
                 ),
         ],
       ),

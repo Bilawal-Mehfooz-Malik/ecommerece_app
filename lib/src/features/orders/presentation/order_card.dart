@@ -1,13 +1,15 @@
-import 'package:ecommerce_app/src/features/orders/presentation/orders_list/order_item_list_tile.dart';
-import 'package:ecommerce_app/src/features/orders/presentation/orders_list/order_status_label.dart';
-import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/orders/domain/order.dart';
+import 'package:ecommerce_app/src/features/orders/presentation/order_item_list_tile.dart';
+import 'package:ecommerce_app/src/features/orders/presentation/order_status_label.dart';
+import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 import 'package:ecommerce_app/src/utils/currency_formatter.dart';
 import 'package:ecommerce_app/src/utils/date_formatter.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 
 /// Shows all the details for a given order
 class OrderCard extends StatelessWidget {
@@ -59,7 +61,7 @@ class OrderHeader extends ConsumerWidget {
                 children: [
                   Text(
                     'Order placed'.hardcoded.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: context.textTheme.bodySmall,
                   ),
                   gapH4,
                   Text(dateFormatted),
@@ -71,7 +73,7 @@ class OrderHeader extends ConsumerWidget {
                   Text(
                     'Total'.hardcoded.toUpperCase(),
                     textAlign: TextAlign.end,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: context.textTheme.bodySmall,
                   ),
                   gapH4,
                   Text(totalFormatted),

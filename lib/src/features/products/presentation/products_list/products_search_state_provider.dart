@@ -12,7 +12,7 @@ class ProductsSearchQuery extends _$ProductsSearchQuery {
     return '';
   }
 
-  // Method to update the search query
+  // * Method to update the search query
   void setSearchQuery(String query) {
     state = query;
   }

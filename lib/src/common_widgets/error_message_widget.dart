@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class ErrorMessageWidget extends StatelessWidget {
@@ -7,7 +8,7 @@ class ErrorMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       errorMessage,
-      style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.red),
+      style: context.textTheme.titleLarge!.copyWith(color: Colors.red),
     );
   }
 }

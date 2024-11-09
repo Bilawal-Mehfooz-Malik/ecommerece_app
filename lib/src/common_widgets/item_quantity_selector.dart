@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 
 /// Item quantity selector with +/- buttons and a text value in the middle
 class ItemQuantitySelector extends StatelessWidget {
@@ -27,10 +29,7 @@ class ItemQuantitySelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black54,
-          width: 1,
-        ),
+        border: Border.all(color: Colors.black54, width: 1),
         borderRadius: const BorderRadius.all(Radius.circular(Sizes.p24)),
       ),
       child: Row(
@@ -50,7 +49,7 @@ class ItemQuantitySelector extends StatelessWidget {
               '$quantity',
               key: quantityKey(itemIndex),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: context.textTheme.bodyLarge,
             ),
           ),
           IconButton(

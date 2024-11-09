@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/src/features/cart/application/cart_service.dart';
 import 'package:ecommerce_app/src/utils/currency_formatter.dart';
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +15,7 @@ class CartTotalText extends ConsumerWidget {
         ref.watch(currencyFormatterProvider).format(cartTotal);
     return Text(
       'Total: $totalFormatted',
-      style: Theme.of(context).textTheme.headlineSmall,
+      style: context.textTheme.headlineSmall,
       textAlign: TextAlign.center,
     );
   }

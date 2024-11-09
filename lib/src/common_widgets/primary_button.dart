@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 
 /// Primary button based on [ElevatedButton].
 /// Useful for CTAs in the app.
@@ -24,10 +26,8 @@ class PrimaryButton extends StatelessWidget {
             : Text(
                 text,
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(color: Colors.white),
+                style:
+                    context.textTheme.titleLarge!.copyWith(color: Colors.white),
               ),
       ),
     );
