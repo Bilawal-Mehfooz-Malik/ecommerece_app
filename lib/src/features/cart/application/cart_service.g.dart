@@ -49,7 +49,7 @@ final cartItemsCountProvider = Provider<int>.internal(
 );
 
 typedef CartItemsCountRef = ProviderRef<int>;
-String _$cartTotalHash() => r'04516c092b9ca272bf2c9d10affcc0a9c9f2dec2';
+String _$cartTotalHash() => r'620fa13b324b41b44713aede70cb19b607f395cb';
 
 /// See also [cartTotal].
 @ProviderFor(cartTotal)

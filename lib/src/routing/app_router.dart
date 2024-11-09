@@ -33,10 +33,10 @@ GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
     initialLocation: '/',
-    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
+    debugLogDiagnostics: false,
     redirect: (context, state) {
-      final path = state.uri.path;
       final isLoggedIn = authRepository.currentUser != null;
+      final path = state.uri.path;
       if (isLoggedIn) {
         if (path == '/signIn') {
           return '/';
@@ -48,6 +48,7 @@ GoRouter goRouter(GoRouterRef ref) {
       }
       return null;
     },
+    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
         path: '/',
@@ -68,7 +69,6 @@ GoRouter goRouter(GoRouterRef ref) {
                 pageBuilder: (context, state) {
                   final productId = state.pathParameters['id']!;
                   return MaterialPage(
-                    key: state.pageKey,
                     fullscreenDialog: true,
                     child: LeaveReviewScreen(productId: productId),
                   );
@@ -79,19 +79,17 @@ GoRouter goRouter(GoRouterRef ref) {
           GoRoute(
             path: 'cart',
             name: AppRoute.cart.name,
-            pageBuilder: (context, state) => MaterialPage(
-              key: ValueKey(state.uri.path),
+            pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
-              child: const ShoppingCartScreen(),
+              child: ShoppingCartScreen(),
             ),
             routes: [
               GoRoute(
                 path: 'checkout',
                 name: AppRoute.checkout.name,
-                pageBuilder: (context, state) => MaterialPage(
-                  key: ValueKey(state.uri.path),
+                pageBuilder: (context, state) => const MaterialPage(
                   fullscreenDialog: true,
-                  child: const CheckoutScreen(),
+                  child: CheckoutScreen(),
                 ),
               ),
             ],
@@ -99,28 +97,25 @@ GoRouter goRouter(GoRouterRef ref) {
           GoRoute(
             path: 'orders',
             name: AppRoute.orders.name,
-            pageBuilder: (context, state) => MaterialPage(
-              key: state.pageKey,
+            pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
-              child: const OrdersListScreen(),
+              child: OrdersListScreen(),
             ),
           ),
           GoRoute(
             path: 'account',
             name: AppRoute.account.name,
-            pageBuilder: (context, state) => MaterialPage(
-              key: state.pageKey,
+            pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
-              child: const AccountScreen(),
+              child: AccountScreen(),
             ),
           ),
           GoRoute(
             path: 'signIn',
             name: AppRoute.signIn.name,
-            pageBuilder: (context, state) => MaterialPage(
-              key: state.pageKey,
+            pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
-              child: const EmailPasswordSignInScreen(
+              child: EmailPasswordSignInScreen(
                 formType: EmailPasswordSignInFormType.signIn,
               ),
             ),

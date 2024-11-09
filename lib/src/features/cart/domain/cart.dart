@@ -14,19 +14,6 @@ class Cart {
   /// - value: quantity
   final Map<ProductID, int> items;
 
-  @override
-  String toString() => 'Cart(items: $items)';
-
-  @override
-  bool operator ==(covariant Cart other) {
-    if (identical(this, other)) return true;
-
-    return mapEquals(other.items, items);
-  }
-
-  @override
-  int get hashCode => items.hashCode;
-
   Map<String, dynamic> toMap() {
     return {
       'items': items,
@@ -42,6 +29,19 @@ class Cart {
   String toJson() => json.encode(toMap());
 
   factory Cart.fromJson(String source) => Cart.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'Cart(items: $items)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Cart && mapEquals(other.items, items);
+  }
+
+  @override
+  int get hashCode => items.hashCode;
 }
 
 extension CartItems on Cart {

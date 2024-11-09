@@ -19,6 +19,7 @@
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
+.vscode/settings.json
 
 # Flutter repo-specific
 /bin/cache/
@@ -118,4 +119,5 @@ firebase-exports
 .env.stg
 .env.prod
 
-coverage/Icov.info
+# Ignore test coverage data
+coverage/lcov.info

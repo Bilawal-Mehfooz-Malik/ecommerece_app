@@ -1,22 +1,38 @@
-import 'package:ecommerce_app/src/common_widgets/alert_dialogs.dart';
-import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
-import 'package:ecommerce_app/src/utils/async_value_ui.dart';
-import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen_controller.dart';
-import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:ecommerce_app/src/utils/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ecommerce_app/src/common_widgets/action_text_button.dart';
+import 'package:ecommerce_app/src/common_widgets/alert_dialogs.dart';
 import 'package:ecommerce_app/src/common_widgets/responsive_center.dart';
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:ecommerce_app/src/utils/async_value_ui.dart';
 
 /// Simple account screen showing some user info and a logout button.
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
 
+  Future<void> logOut(BuildContext ctx, WidgetRef ref) async {
+    final logout = await showAlertDialog(
+      context: ctx,
+      title: 'Are you sure?'.hardcoded,
+      cancelActionText: 'Cancel'.hardcoded,
+      defaultActionText: 'Logout'.hardcoded,
+    );
+    if (logout == true) {
+      ref.read(accountScreenControllerProvider.notifier).signOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AsyncValue<void>>(accountScreenControllerProvider,
-        (_, state) => state.showAlertDialogOnError(context));
+    ref.listen<AsyncValue>(
+      accountScreenControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
 
     final state = ref.watch(accountScreenControllerProvider);
     return Scaffold(
@@ -27,21 +43,7 @@ class AccountScreen extends ConsumerWidget {
         actions: [
           ActionTextButton(
             text: 'Logout'.hardcoded,
-            onPressed: state.isLoading
-                ? null
-                : () async {
-                    final logout = await showAlertDialog(
-                      context: context,
-                      title: 'Are you sure?'.hardcoded,
-                      cancelActionText: 'Cancel'.hardcoded,
-                      defaultActionText: 'Logout'.hardcoded,
-                    );
-                    if (logout == true) {
-                      ref
-                          .read(accountScreenControllerProvider.notifier)
-                          .signOut();
-                    }
-                  },
+            onPressed: () => state.isLoading ? null : logOut(context, ref),
           ),
         ],
       ),
@@ -59,7 +61,7 @@ class UserDataTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme.bodyMedium!;
+    final style = context.textTheme.titleSmall!;
     final user = ref.watch(authStateChangesProvider).value;
     return DataTable(
       columns: [

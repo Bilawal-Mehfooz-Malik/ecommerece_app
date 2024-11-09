@@ -14,9 +14,13 @@ extension MutableCart on Cart {
   /// add an item to the cart by *updating* the quantity if it already exists
   Cart addItem(Item item) {
     final copy = Map<ProductID, int>.from(items);
+    // * update item quantity. Read this for more details:
+    // * https://codewithandrea.com/tips/dart-map-update-method/
     copy.update(
       item.productId,
+      // if there is already a value, update it by adding the item quantity
       (value) => item.quantity + value,
+      // otherwise, add the item with the given quantity
       ifAbsent: () => item.quantity,
     );
     return Cart(copy);
@@ -29,7 +33,9 @@ extension MutableCart on Cart {
     for (var item in itemsToAdd) {
       copy.update(
         item.productId,
+        // if there is already a value, update it by adding the item quantity
         (value) => item.quantity + value,
+        // otherwise, add the item with the given quantity
         ifAbsent: () => item.quantity,
       );
     }

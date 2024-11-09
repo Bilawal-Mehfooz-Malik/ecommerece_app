@@ -66,7 +66,5 @@ class GoldenRobot {
     await tester.binding.setSurfaceSize(size);
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1.0;
-    // tester.binding.window.physicalSizeTestValue = size;
-    // tester.binding.window.devicePixelRatioTestValue = 1.0;
   }
 }

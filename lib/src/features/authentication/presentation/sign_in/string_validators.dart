@@ -13,6 +13,7 @@ class RegexValidator implements StringValidator {
   @override
   bool isValid(String value) {
     try {
+      // https://regex101.com/
       final RegExp regex = RegExp(regexSource);
       final Iterable<Match> matches = regex.allMatches(value);
       for (final match in matches) {
@@ -22,6 +23,7 @@ class RegexValidator implements StringValidator {
       }
       return false;
     } catch (e) {
+      // Invalid regex
       assert(false, e.toString());
       return true;
     }

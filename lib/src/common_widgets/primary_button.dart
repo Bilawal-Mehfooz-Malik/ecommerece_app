@@ -26,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .headlineSmall!
+                    .titleLarge!
                     .copyWith(color: Colors.white),
               ),
       ),
