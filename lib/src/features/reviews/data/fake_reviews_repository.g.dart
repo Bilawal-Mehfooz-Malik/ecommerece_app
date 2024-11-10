@@ -6,7 +6,7 @@ part of 'fake_reviews_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$reviewsRepositoryHash() => r'8a69281fa37026cd50057faf754621a4e46629e5';
+String _$reviewsRepositoryHash() => r'0a66b483815edad1bf5206c0a1679eaae1f56fec';
 
 /// See also [reviewsRepository].
 @ProviderFor(reviewsRepository)
@@ -20,8 +20,10 @@ final reviewsRepositoryProvider = Provider<FakeReviewsRepository>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef ReviewsRepositoryRef = ProviderRef<FakeReviewsRepository>;
-String _$productReviewsHash() => r'a406f54f708a91b59663ad194a30c08533f20ca8';
+String _$productReviewsHash() => r'ae4ef8005af890803ce6bbc54856b6fc5b260134';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -157,6 +159,8 @@ class ProductReviewsProvider extends AutoDisposeStreamProvider<List<Review>> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ProductReviewsRef on AutoDisposeStreamProviderRef<List<Review>> {
   /// The parameter `id` of this provider.
   String get id;
@@ -171,4 +175,4 @@ class _ProductReviewsProviderElement
   String get id => (origin as ProductReviewsProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

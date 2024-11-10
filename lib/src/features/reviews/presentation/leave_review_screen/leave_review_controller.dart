@@ -8,11 +8,10 @@ part 'leave_review_controller.g.dart';
 
 @riverpod
 class LeaveReviewController extends _$LeaveReviewController {
-  bool mounted = true;
+  bool _mounted = true;
   @override
   FutureOr<void> build() {
-    ref.onDispose(() => mounted = false);
-    // nothing to do
+    ref.onDispose(() => _mounted = false);
   }
 
   Future<void> submitReview({
@@ -36,7 +35,7 @@ class LeaveReviewController extends _$LeaveReviewController {
       state = const AsyncLoading();
       final newState = await AsyncValue.guard(() =>
           reviewsService.submitReview(productId: productId, review: review));
-      if (mounted) {
+      if (_mounted) {
         // * only set the state if the controller hasn't been disposed
         state = newState;
         if (state.hasError == false) {

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:ecommerce_app/src/features/orders/domain/order.dart';
@@ -47,6 +48,6 @@ class FakeOrdersRepository {
 }
 
 @Riverpod(keepAlive: true)
-FakeOrdersRepository ordersRepository(OrdersRepositoryRef ref) {
+FakeOrdersRepository ordersRepository(Ref ref) {
   return FakeOrdersRepository();
 }

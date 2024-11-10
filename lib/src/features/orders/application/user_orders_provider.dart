@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
@@ -10,7 +11,7 @@ part 'user_orders_provider.g.dart';
 /// Watch the list of user orders
 /// NOTE: Only watch this provider if the user is signed in.
 @riverpod
-Stream<List<Order>> userOrders(UserOrdersRef ref) {
+Stream<List<Order>> userOrders(Ref ref) {
   final user = ref.watch(authStateChangesProvider).value;
   if (user != null) {
     return ref.watch(ordersRepositoryProvider).watchUserOrders(user.uid);
@@ -22,8 +23,7 @@ Stream<List<Order>> userOrders(UserOrdersRef ref) {
 
 /// Check if a product was previously purchased by the user
 @riverpod
-Stream<List<Order>> matchingUserOrders(
-    MatchingUserOrdersRef ref, ProductID id) {
+Stream<List<Order>> matchingUserOrders(Ref ref, ProductID id) {
   final user = ref.watch(authStateChangesProvider).value;
   if (user != null) {
     return ref

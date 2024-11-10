@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
@@ -82,11 +83,11 @@ class FakeReviewsRepository {
 }
 
 @Riverpod(keepAlive: true)
-FakeReviewsRepository reviewsRepository(ReviewsRepositoryRef ref) {
+FakeReviewsRepository reviewsRepository(Ref ref) {
   return FakeReviewsRepository();
 }
 
 @riverpod
-Stream<List<Review>> productReviews(ProductReviewsRef ref, ProductID id) {
+Stream<List<Review>> productReviews(Ref ref, ProductID id) {
   return ref.watch(reviewsRepositoryProvider).watchReviews(id);
 }

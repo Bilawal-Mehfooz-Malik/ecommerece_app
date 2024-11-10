@@ -1,6 +1,8 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:ecommerce_app/src/features/cart/data/remote/fake_remote_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/domain/cart.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'remote_cart_repository.g.dart';
 
@@ -14,7 +16,7 @@ abstract class RemoteCartRepository {
 }
 
 @Riverpod(keepAlive: true)
-RemoteCartRepository remoteCartRepository(RemoteCartRepositoryRef ref) {
+RemoteCartRepository remoteCartRepository(Ref ref) {
   // TODO: replace with "real" remote cart repository
   return FakeRemoteCartRepository(addDelay: false);
 }

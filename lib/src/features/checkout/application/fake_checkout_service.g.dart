@@ -6,7 +6,7 @@ part of 'fake_checkout_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$checkoutServiceHash() => r'3ede6113d124c0a83c8517175d0f90cb8ae34fd4';
+String _$checkoutServiceHash() => r'64059580e5b7c6948bebd08bd5f4b4f5342cb607';
 
 /// See also [checkoutService].
 @ProviderFor(checkoutService)
@@ -21,6 +21,8 @@ final checkoutServiceProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef CheckoutServiceRef = AutoDisposeProviderRef<FakeCheckoutService>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

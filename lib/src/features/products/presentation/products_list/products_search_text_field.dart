@@ -20,7 +20,7 @@ class _ProductsSearchTextFieldState
 
   void _onSearch() {
     _controller.clear();
-    ref.read(productsSearchQueryProvider.notifier).setSearchQuery('');
+    ref.read(productsSearchQueryStateProvider.notifier).state = '';
   }
 
   @override
@@ -49,7 +49,7 @@ class _ProductsSearchTextFieldState
                 : null,
           ),
           onChanged: (text) {
-            ref.read(productsSearchQueryProvider.notifier).setSearchQuery(text);
+            ref.read(productsSearchQueryStateProvider.notifier).state = text;
           },
         );
       },

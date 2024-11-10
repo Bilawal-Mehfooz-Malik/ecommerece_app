@@ -64,12 +64,12 @@ class CartService {
 }
 
 @Riverpod(keepAlive: true)
-CartService cartService(CartServiceRef ref) {
+CartService cartService(Ref ref) {
   return CartService(ref);
 }
 
 @Riverpod(keepAlive: true)
-Stream<Cart> cart(CartRef ref) {
+Stream<Cart> cart(Ref ref) {
   final user = ref.watch(authStateChangesProvider).value;
   if (user != null) {
     return ref.watch(remoteCartRepositoryProvider).watchCart(user.uid);
@@ -79,7 +79,7 @@ Stream<Cart> cart(CartRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-int cartItemsCount(CartItemsCountRef ref) {
+int cartItemsCount(Ref ref) {
   return ref.watch(cartProvider).maybeMap(
         data: (cart) => cart.value.items.length,
         orElse: () => 0,
@@ -87,7 +87,7 @@ int cartItemsCount(CartItemsCountRef ref) {
 }
 
 @riverpod
-double cartTotal(CartTotalRef ref) {
+double cartTotal(Ref ref) {
   final cart = ref.watch(cartProvider).value ?? const Cart();
   final productsList = ref.watch(productsListStreamProvider).value ?? [];
   if (cart.items.isNotEmpty && productsList.isNotEmpty) {
@@ -104,7 +104,7 @@ double cartTotal(CartTotalRef ref) {
 }
 
 @riverpod
-int itemAvailableQuantity(ItemAvailableQuantityRef ref, Product product) {
+int itemAvailableQuantity(Ref ref, Product product) {
   final cart = ref.watch(cartProvider).value;
   if (cart != null) {
     // get the current quantity for the given product in the cart

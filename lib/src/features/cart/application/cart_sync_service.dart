@@ -86,6 +86,6 @@ class CartSyncService {
 }
 
 @Riverpod(keepAlive: true)
-CartSyncService cartSyncService(CartSyncServiceRef ref) {
+CartSyncService cartSyncService(Ref ref) {
   return CartSyncService(ref);
 }

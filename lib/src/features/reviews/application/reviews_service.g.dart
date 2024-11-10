@@ -6,7 +6,7 @@ part of 'reviews_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$reviewsServiceHash() => r'd91877727c3a90c4267086fa9cd81c8ab6938afd';
+String _$reviewsServiceHash() => r'e809ef270de87fefd57cf6997bfc8ef23ada4d14';
 
 /// See also [reviewsService].
 @ProviderFor(reviewsService)
@@ -20,8 +20,10 @@ final reviewsServiceProvider = Provider<ReviewsService>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef ReviewsServiceRef = ProviderRef<ReviewsService>;
-String _$userReviewFutureHash() => r'a0946dc6e8e861944f7a069a345f1036879b5b1f';
+String _$userReviewFutureHash() => r'87281ddcf1352fc244e11075858bd9b143c5c25e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -169,6 +171,8 @@ class UserReviewFutureProvider extends AutoDisposeFutureProvider<Review?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UserReviewFutureRef on AutoDisposeFutureProviderRef<Review?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -182,7 +186,7 @@ class _UserReviewFutureProviderElement
   String get id => (origin as UserReviewFutureProvider).id;
 }
 
-String _$userReviewStreamHash() => r'63d6101443637e0a266dbb2c496abfe44113218f';
+String _$userReviewStreamHash() => r'cc636c5e13043eb4fd949f1e06831a622b39980a';
 
 /// Check if a product was previously reviewed by the user
 ///
@@ -309,6 +313,8 @@ class UserReviewStreamProvider extends AutoDisposeStreamProvider<Review?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UserReviewStreamRef on AutoDisposeStreamProviderRef<Review?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -322,4 +328,4 @@ class _UserReviewStreamProviderElement
   String get id => (origin as UserReviewStreamProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
