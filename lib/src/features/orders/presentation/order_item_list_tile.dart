@@ -23,6 +23,7 @@ class OrderItemListTile extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: Sizes.p8),
         child: Row(
           children: [
+            gapW8,
             Flexible(
               flex: 1,
               child: CustomImage(imageUrl: product!.imageUrl),
