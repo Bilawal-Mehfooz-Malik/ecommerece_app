@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
-import 'package:ecommerce_app/src/utils/theme_extension.dart';
 
 /// Shows the product average rating score and the number of ratings
 class ProductAverageRating extends StatelessWidget {
@@ -13,11 +11,14 @@ class ProductAverageRating extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(Icons.star, color: Colors.amber),
+        const Icon(
+          Icons.star,
+          color: Colors.amber,
+        ),
         gapW8,
         Text(
           product.avgRating.toStringAsFixed(1),
-          style: context.textTheme.bodyLarge,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         gapW8,
         Expanded(
@@ -25,7 +26,7 @@ class ProductAverageRating extends StatelessWidget {
             product.numRatings == 1
                 ? '1 rating'
                 : '${product.numRatings} ratings',
-            style: context.textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
       ],

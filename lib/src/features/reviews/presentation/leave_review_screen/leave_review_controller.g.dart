@@ -7,7 +7,7 @@ part of 'leave_review_controller.dart';
 // **************************************************************************
 
 String _$leaveReviewControllerHash() =>
-    r'dec77cf4eeb06e1ecf397ac180917105b62c1a2b';
+    r'17e5c0189f6b0f25ef47a7b0428e1bc8b959117f';
 
 /// See also [LeaveReviewController].
 @ProviderFor(LeaveReviewController)
@@ -24,4 +24,4 @@ final leaveReviewControllerProvider =
 
 typedef _$LeaveReviewController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

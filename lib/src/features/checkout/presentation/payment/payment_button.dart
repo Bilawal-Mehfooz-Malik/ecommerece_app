@@ -9,6 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PaymentButton extends ConsumerWidget {
   const PaymentButton({super.key});
 
+  Future<void> _pay(BuildContext context, WidgetRef ref) async {
+    ref.read(paymentButtonControllerProvider.notifier).pay();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue>(
@@ -19,9 +23,7 @@ class PaymentButton extends ConsumerWidget {
     return PrimaryButton(
       text: 'Pay'.hardcoded,
       isLoading: state.isLoading,
-      onPressed: state.isLoading
-          ? null
-          : () => ref.read(paymentButtonControllerProvider.notifier).pay(),
+      onPressed: state.isLoading ? null : () => _pay(context, ref),
     );
   }
 }

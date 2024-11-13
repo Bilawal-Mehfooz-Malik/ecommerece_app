@@ -1,8 +1,7 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 import 'package:ecommerce_app/src/features/cart/application/cart_service.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_to_cart_controller.g.dart';
 

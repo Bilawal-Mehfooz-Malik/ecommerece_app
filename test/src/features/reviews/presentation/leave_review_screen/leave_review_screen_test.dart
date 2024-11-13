@@ -12,7 +12,9 @@ void main() {
     r.cart.expectFindNCartItems(1);
     // checkout
     await r.checkout.startCheckout();
+    // auth
     await r.auth.enterAndSubmitEmailAndPassword();
+    // payment
     r.cart.expectFindNCartItems(1);
     await r.checkout.startPayment();
     // when a payment is complete, user is taken to the orders page
@@ -25,7 +27,7 @@ void main() {
     // * A Timer is still pending even after the widget tree was disposed.
     await tester.runAsync(() async {
       final r = Robot(tester);
-      await r.pumpMyApp();
+      await r.pumpMyAppWithFakes();
       await purchaseOneProduct(r);
       await r.products.selectProduct();
       // leave review

@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:ecommerce_app/src/features/authentication/data/auth_repository.dart';
 import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
 import 'package:ecommerce_app/src/features/cart/application/cart_service.dart';
 import 'package:ecommerce_app/src/features/cart/data/local/local_cart_repository.dart';

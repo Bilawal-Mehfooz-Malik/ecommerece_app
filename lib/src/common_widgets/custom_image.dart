@@ -1,17 +1,21 @@
-import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-/// Custom image widget that loads an image as a static asset.
+/// Custom image widget that loads an image as a static asset or uses
+/// [CachedNetworkImage] depending on the image url.
 class CustomImage extends StatelessWidget {
   const CustomImage({super.key, required this.imageUrl});
   final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Use [CachedNetworkImage] if the url points to a remote resource
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(Sizes.p8),
-      child: Image.asset(imageUrl),
+    // * For this widget to work correctly on web, we need to handle CORS:
+    // * https://flutter.dev/docs/development/platform-integration/web-images
+    return AspectRatio(
+      aspectRatio: 1,
+      child: imageUrl.startsWith('http')
+          ? CachedNetworkImage(imageUrl: imageUrl)
+          : Image.asset(imageUrl),
     );
   }
 }

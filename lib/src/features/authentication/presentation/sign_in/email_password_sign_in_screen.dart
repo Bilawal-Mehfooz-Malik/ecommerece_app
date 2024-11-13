@@ -1,17 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:ecommerce_app/src/common_widgets/custom_text_button.dart';
-import 'package:ecommerce_app/src/common_widgets/primary_button.dart';
-import 'package:ecommerce_app/src/common_widgets/responsive_scrollable_card.dart';
-import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_form_type.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_validators.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 import 'package:ecommerce_app/src/utils/async_value_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ecommerce_app/src/common_widgets/custom_text_button.dart';
+import 'package:ecommerce_app/src/common_widgets/primary_button.dart';
+import 'package:ecommerce_app/src/common_widgets/responsive_scrollable_card.dart';
+import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Email & password sign in screen.
 /// Wraps the [EmailPasswordSignInContents] widget below with a [Scaffold] and
@@ -28,7 +27,9 @@ class EmailPasswordSignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Sign In'.hardcoded)),
-      body: EmailPasswordSignInContents(formType: formType),
+      body: EmailPasswordSignInContents(
+        formType: formType,
+      ),
     );
   }
 }
@@ -64,12 +65,15 @@ class _EmailPasswordSignInContentsState
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
   // error hints only when the form has been submitted
+  // For more details on how this is implemented, see:
+  // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
   // track the formType as a local state variable
   late var _formType = widget.formType;
 
   @override
   void dispose() {
+    // * TextEditingControllers should be always disposed
     _node.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -121,7 +125,6 @@ class _EmailPasswordSignInContentsState
       (_, state) => state.showAlertDialogOnError(context),
     );
     final state = ref.watch(emailPasswordSignInControllerProvider);
-
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,
@@ -129,7 +132,7 @@ class _EmailPasswordSignInContentsState
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+            children: <Widget>[
               gapH8,
               // Email field
               TextFormField(
@@ -146,6 +149,7 @@ class _EmailPasswordSignInContentsState
                 autocorrect: false,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
+                keyboardAppearance: Brightness.light,
                 onEditingComplete: () => _emailEditingComplete(),
                 inputFormatters: <TextInputFormatter>[
                   ValidatorInputFormatter(
@@ -168,6 +172,7 @@ class _EmailPasswordSignInContentsState
                 obscureText: true,
                 autocorrect: false,
                 textInputAction: TextInputAction.done,
+                keyboardAppearance: Brightness.light,
                 onEditingComplete: () => _passwordEditingComplete(),
               ),
               gapH8,

@@ -1,23 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:ecommerce_app/src/features/authentication/data/auth_repository.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_form_type.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
 import 'package:ecommerce_app/src/features/cart/presentation/shopping_cart/shopping_cart_screen.dart';
 import 'package:ecommerce_app/src/features/checkout/presentation/checkout_screen/checkout_screen.dart';
-import 'package:ecommerce_app/src/features/orders/presentation/orders_list_screen.dart';
+import 'package:ecommerce_app/src/features/orders/presentation/orders_list/orders_list_screen.dart';
 import 'package:ecommerce_app/src/features/products/presentation/product_screen/product_screen.dart';
 import 'package:ecommerce_app/src/features/products/presentation/products_list/products_list_screen.dart';
 import 'package:ecommerce_app/src/features/reviews/presentation/leave_review_screen/leave_review_screen.dart';
 import 'package:ecommerce_app/src/routing/go_router_refresh_stream.dart';
 import 'package:ecommerce_app/src/routing/not_found_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'app_router.g.dart';
-
+/// All the supported routes in the app.
+/// By using an enum, we route by name using this syntax:
+/// ```dart
+/// context.goNamed(AppRoute.orders.name)
+/// ```
 enum AppRoute {
   home,
   product,
@@ -29,14 +30,16 @@ enum AppRoute {
   signIn,
 }
 
-@Riverpod(keepAlive: true)
-GoRouter goRouter(Ref ref) {
+/// returns the GoRouter instance that defines all the routes in the app
+final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
     initialLocation: '/',
-    debugLogDiagnostics: false,
-    redirect: (context, state) {
-      final isLoggedIn = authRepository.currentUser != null;
+    debugLogDiagnostics: true,
+    // * redirect logic based on the authentication state
+    redirect: (context, state) async {
+      final user = authRepository.currentUser;
+      final isLoggedIn = user != null;
       final path = state.uri.path;
       if (isLoggedIn) {
         if (path == '/signIn') {
@@ -126,4 +129,4 @@ GoRouter goRouter(Ref ref) {
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
   );
-}
+});

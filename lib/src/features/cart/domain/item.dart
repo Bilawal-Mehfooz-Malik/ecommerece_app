@@ -1,7 +1,8 @@
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:equatable/equatable.dart';
 
 /// A product along with a quantity that can be added to an order/cart
-class Item {
+class Item extends Equatable {
   const Item({
     required this.productId,
     required this.quantity,
@@ -10,14 +11,8 @@ class Item {
   final int quantity;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Item &&
-        other.productId == productId &&
-        other.quantity == quantity;
-  }
+  List<Object?> get props => [productId, quantity];
 
   @override
-  int get hashCode => productId.hashCode ^ quantity.hashCode;
+  bool? get stringify => true;
 }

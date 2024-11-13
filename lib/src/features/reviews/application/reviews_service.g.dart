@@ -6,11 +6,11 @@ part of 'reviews_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$reviewsServiceHash() => r'e809ef270de87fefd57cf6997bfc8ef23ada4d14';
+String _$reviewsServiceHash() => r'b321038da884120210faac9a6506f8f1215e3391';
 
 /// See also [reviewsService].
 @ProviderFor(reviewsService)
-final reviewsServiceProvider = Provider<ReviewsService>.internal(
+final reviewsServiceProvider = AutoDisposeProvider<ReviewsService>.internal(
   reviewsService,
   name: r'reviewsServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -20,10 +20,8 @@ final reviewsServiceProvider = Provider<ReviewsService>.internal(
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ReviewsServiceRef = ProviderRef<ReviewsService>;
-String _$userReviewFutureHash() => r'87281ddcf1352fc244e11075858bd9b143c5c25e';
+typedef ReviewsServiceRef = AutoDisposeProviderRef<ReviewsService>;
+String _$userReviewFutureHash() => r'98a78f997bf77c9b2cb80da2ddb23242c933893f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -65,10 +63,10 @@ class UserReviewFutureFamily extends Family<AsyncValue<Review?>> {
   ///
   /// Copied from [userReviewFuture].
   UserReviewFutureProvider call(
-    String id,
+    String productId,
   ) {
     return UserReviewFutureProvider(
-      id,
+      productId,
     );
   }
 
@@ -77,7 +75,7 @@ class UserReviewFutureFamily extends Family<AsyncValue<Review?>> {
     covariant UserReviewFutureProvider provider,
   ) {
     return call(
-      provider.id,
+      provider.productId,
     );
   }
 
@@ -104,11 +102,11 @@ class UserReviewFutureProvider extends AutoDisposeFutureProvider<Review?> {
   ///
   /// Copied from [userReviewFuture].
   UserReviewFutureProvider(
-    String id,
+    String productId,
   ) : this._internal(
           (ref) => userReviewFuture(
             ref as UserReviewFutureRef,
-            id,
+            productId,
           ),
           from: userReviewFutureProvider,
           name: r'userReviewFutureProvider',
@@ -119,7 +117,7 @@ class UserReviewFutureProvider extends AutoDisposeFutureProvider<Review?> {
           dependencies: UserReviewFutureFamily._dependencies,
           allTransitiveDependencies:
               UserReviewFutureFamily._allTransitiveDependencies,
-          id: id,
+          productId: productId,
         );
 
   UserReviewFutureProvider._internal(
@@ -129,10 +127,10 @@ class UserReviewFutureProvider extends AutoDisposeFutureProvider<Review?> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.id,
+    required this.productId,
   }) : super.internal();
 
-  final String id;
+  final String productId;
 
   @override
   Override overrideWith(
@@ -147,7 +145,7 @@ class UserReviewFutureProvider extends AutoDisposeFutureProvider<Review?> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        id: id,
+        productId: productId,
       ),
     );
   }
@@ -159,23 +157,21 @@ class UserReviewFutureProvider extends AutoDisposeFutureProvider<Review?> {
 
   @override
   bool operator ==(Object other) {
-    return other is UserReviewFutureProvider && other.id == id;
+    return other is UserReviewFutureProvider && other.productId == productId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, productId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin UserReviewFutureRef on AutoDisposeFutureProviderRef<Review?> {
-  /// The parameter `id` of this provider.
-  String get id;
+  /// The parameter `productId` of this provider.
+  String get productId;
 }
 
 class _UserReviewFutureProviderElement
@@ -183,10 +179,10 @@ class _UserReviewFutureProviderElement
   _UserReviewFutureProviderElement(super.provider);
 
   @override
-  String get id => (origin as UserReviewFutureProvider).id;
+  String get productId => (origin as UserReviewFutureProvider).productId;
 }
 
-String _$userReviewStreamHash() => r'cc636c5e13043eb4fd949f1e06831a622b39980a';
+String _$userReviewStreamHash() => r'929c44de465ca195cb9f12203943b7bb4bdfda26';
 
 /// Check if a product was previously reviewed by the user
 ///
@@ -207,10 +203,10 @@ class UserReviewStreamFamily extends Family<AsyncValue<Review?>> {
   ///
   /// Copied from [userReviewStream].
   UserReviewStreamProvider call(
-    String id,
+    String productId,
   ) {
     return UserReviewStreamProvider(
-      id,
+      productId,
     );
   }
 
@@ -219,7 +215,7 @@ class UserReviewStreamFamily extends Family<AsyncValue<Review?>> {
     covariant UserReviewStreamProvider provider,
   ) {
     return call(
-      provider.id,
+      provider.productId,
     );
   }
 
@@ -246,11 +242,11 @@ class UserReviewStreamProvider extends AutoDisposeStreamProvider<Review?> {
   ///
   /// Copied from [userReviewStream].
   UserReviewStreamProvider(
-    String id,
+    String productId,
   ) : this._internal(
           (ref) => userReviewStream(
             ref as UserReviewStreamRef,
-            id,
+            productId,
           ),
           from: userReviewStreamProvider,
           name: r'userReviewStreamProvider',
@@ -261,7 +257,7 @@ class UserReviewStreamProvider extends AutoDisposeStreamProvider<Review?> {
           dependencies: UserReviewStreamFamily._dependencies,
           allTransitiveDependencies:
               UserReviewStreamFamily._allTransitiveDependencies,
-          id: id,
+          productId: productId,
         );
 
   UserReviewStreamProvider._internal(
@@ -271,10 +267,10 @@ class UserReviewStreamProvider extends AutoDisposeStreamProvider<Review?> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.id,
+    required this.productId,
   }) : super.internal();
 
-  final String id;
+  final String productId;
 
   @override
   Override overrideWith(
@@ -289,7 +285,7 @@ class UserReviewStreamProvider extends AutoDisposeStreamProvider<Review?> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        id: id,
+        productId: productId,
       ),
     );
   }
@@ -301,23 +297,21 @@ class UserReviewStreamProvider extends AutoDisposeStreamProvider<Review?> {
 
   @override
   bool operator ==(Object other) {
-    return other is UserReviewStreamProvider && other.id == id;
+    return other is UserReviewStreamProvider && other.productId == productId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, productId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin UserReviewStreamRef on AutoDisposeStreamProviderRef<Review?> {
-  /// The parameter `id` of this provider.
-  String get id;
+  /// The parameter `productId` of this provider.
+  String get productId;
 }
 
 class _UserReviewStreamProviderElement
@@ -325,7 +319,7 @@ class _UserReviewStreamProviderElement
   _UserReviewStreamProviderElement(super.provider);
 
   @override
-  String get id => (origin as UserReviewStreamProvider).id;
+  String get productId => (origin as UserReviewStreamProvider).productId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,9 +1,6 @@
 import 'package:ecommerce_app/src/exceptions/app_exception.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'error_logger.g.dart';
 
 class ErrorLogger {
   void logError(Object error, StackTrace? stackTrace) {
@@ -17,7 +14,6 @@ class ErrorLogger {
   }
 }
 
-@riverpod
-ErrorLogger errorLogger(Ref ref) {
+final errorLoggerProvider = Provider<ErrorLogger>((ref) {
   return ErrorLogger();
-}
+});

@@ -26,7 +26,10 @@ class ResponsiveCenter extends StatelessWidget {
       // https://twitter.com/biz84/status/1445400059894542337
       child: SizedBox(
         width: maxContentWidth,
-        child: Padding(padding: padding, child: child),
+        child: Padding(
+          padding: padding,
+          child: child,
+        ),
       ),
     );
   }

@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-
-import 'package:ecommerce_app/src/common_widgets/decorated_box_with_shadow.dart';
 import 'package:ecommerce_app/src/common_widgets/empty_placeholder_widget.dart';
-import 'package:ecommerce_app/src/common_widgets/responsive_center.dart';
-import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:ecommerce_app/src/constants/breakpoints.dart';
-import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/cart/presentation/cart_total/cart_total_with_cta.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:flutter/material.dart';
+import 'package:ecommerce_app/src/common_widgets/decorated_box_with_shadow.dart';
+import 'package:ecommerce_app/src/common_widgets/responsive_center.dart';
+import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 
 /// Responsive widget showing the cart items and the checkout button
 class ShoppingCartItemsBuilder extends StatelessWidget {
@@ -32,7 +31,7 @@ class ShoppingCartItemsBuilder extends StatelessWidget {
     // ! MediaQuery is used on the assumption that the widget takes up the full
     // ! width of the screen. If that's not the case, LayoutBuilder should be
     // ! used instead.
-    final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenWidth = MediaQuery.of(context).size.width;
     // * on wide layouts, show a list of items on the left and the checkout
     // * button on the right
     if (screenWidth >= Breakpoint.tablet) {
@@ -41,8 +40,8 @@ class ShoppingCartItemsBuilder extends StatelessWidget {
         child: Row(
           children: [
             Flexible(
-              // use 3 flex units for the list of items
-              flex: 3,
+              // use 30 flex units for the list of items
+              flex: 30,
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: Sizes.p16),
                 itemBuilder: (context, index) {
@@ -54,8 +53,8 @@ class ShoppingCartItemsBuilder extends StatelessWidget {
             ),
             gapW16,
             Flexible(
-              // use 1 flex unit for the checkout button
-              flex: 1,
+              // use 11 flex unit for the checkout button
+              flex: 11,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: Sizes.p16),
                 child: CartTotalWithCTA(ctaBuilder: ctaBuilder),

@@ -1,17 +1,16 @@
 import 'dart:math';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 import 'package:ecommerce_app/src/exceptions/error_logger.dart';
-import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:ecommerce_app/src/features/authentication/data/auth_repository.dart';
 import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
 import 'package:ecommerce_app/src/features/cart/data/local/local_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/data/remote/remote_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/domain/cart.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/cart/domain/mutable_cart.dart';
-import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
+import 'package:ecommerce_app/src/features/products/data/products_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_sync_service.g.dart';
 
@@ -34,7 +33,7 @@ class CartSyncService {
 
   /// moves all items from the local to the remote cart taking into account the
   /// available quantities
-  Future<void> _moveItemsToRemoteCart(String uid) async {
+  Future<void> _moveItemsToRemoteCart(UserID uid) async {
     try {
       // Get the local cart data
       final localCartRepository = ref.read(localCartRepositoryProvider);
@@ -85,7 +84,8 @@ class CartSyncService {
   }
 }
 
+// * Using keepAlive since this should live for the entire app lifecycle
 @Riverpod(keepAlive: true)
-CartSyncService cartSyncService(Ref ref) {
+CartSyncService cartSyncService(CartSyncServiceRef ref) {
   return CartSyncService(ref);
 }

@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/src/features/checkout/application/fake_checkout_service.dart';
+import 'package:ecommerce_app/src/features/checkout/application/checkout_service.dart';
 import 'package:ecommerce_app/src/features/checkout/presentation/payment/payment_button_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,7 +25,7 @@ void main() {
     test('success', () async {
       // setup
       final checkoutService = MockCheckoutService();
-      when(() => checkoutService.placeOrder()).thenAnswer(
+      when(checkoutService.placeOrder).thenAnswer(
         (_) => Future.value(null),
       );
       final container = makeProviderContainer(checkoutService);
@@ -47,13 +47,13 @@ void main() {
         () => listener(any(that: isA<AsyncLoading>()), data),
       ]);
       verifyNoMoreInteractions(listener);
-      verify(() => checkoutService.placeOrder()).called(1);
+      verify(checkoutService.placeOrder).called(1);
     });
 
     test('failure', () async {
       // setup
       final checkoutService = MockCheckoutService();
-      when(() => checkoutService.placeOrder()).thenThrow(
+      when(checkoutService.placeOrder).thenThrow(
         Exception('Card declined'),
       );
       final container = makeProviderContainer(checkoutService);
@@ -76,7 +76,7 @@ void main() {
             any(that: isA<AsyncLoading>()), any(that: isA<AsyncError>())),
       ]);
       verifyNoMoreInteractions(listener);
-      verify(() => checkoutService.placeOrder()).called(1);
+      verify(checkoutService.placeOrder).called(1);
     });
   });
 }

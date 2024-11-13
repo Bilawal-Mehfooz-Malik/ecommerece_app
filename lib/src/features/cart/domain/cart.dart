@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
 
 /// Model class representing the shopping cart contents.
-class Cart {
+class Cart extends Equatable {
   const Cart([this.items = const {}]);
 
   /// All the items in the shopping cart, where:
@@ -14,34 +14,26 @@ class Cart {
   /// - value: quantity
   final Map<ProductID, int> items;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'items': items,
-    };
-  }
-
+  // data serialization
   factory Cart.fromMap(Map<String, dynamic> map) {
     return Cart(
       Map<ProductID, int>.from(map['items']),
     );
   }
 
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toMap() => {
+        'items': items,
+      };
 
   factory Cart.fromJson(String source) => Cart.fromMap(json.decode(source));
 
-  @override
-  String toString() => 'Cart(items: $items)';
+  String toJson() => json.encode(toMap());
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Cart && mapEquals(other.items, items);
-  }
+  List<Object?> get props => [items];
 
   @override
-  int get hashCode => items.hashCode;
+  bool? get stringify => true;
 }
 
 extension CartItems on Cart {

@@ -2,16 +2,18 @@ import 'package:ecommerce_app/src/features/products/domain/product.dart';
 import 'package:ecommerce_app/src/features/reviews/application/reviews_service.dart';
 import 'package:ecommerce_app/src/features/reviews/domain/review.dart';
 import 'package:ecommerce_app/src/utils/current_date_provider.dart';
+import 'package:ecommerce_app/src/utils/notifier_mounted.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'leave_review_controller.g.dart';
 
 @riverpod
-class LeaveReviewController extends _$LeaveReviewController {
-  bool _mounted = true;
+class LeaveReviewController extends _$LeaveReviewController
+    with NotifierMounted {
   @override
   FutureOr<void> build() {
-    ref.onDispose(() => _mounted = false);
+    ref.onDispose(setUnmounted);
+    // nothing to do
   }
 
   Future<void> submitReview({
@@ -35,7 +37,7 @@ class LeaveReviewController extends _$LeaveReviewController {
       state = const AsyncLoading();
       final newState = await AsyncValue.guard(() =>
           reviewsService.submitReview(productId: productId, review: review));
-      if (_mounted) {
+      if (mounted) {
         // * only set the state if the controller hasn't been disposed
         state = newState;
         if (state.hasError == false) {

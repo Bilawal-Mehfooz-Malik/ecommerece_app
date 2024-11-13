@@ -1,16 +1,15 @@
 import 'dart:math';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:ecommerce_app/src/features/authentication/data/auth_repository.dart';
 import 'package:ecommerce_app/src/features/cart/data/local/local_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/data/remote/remote_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/domain/cart.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/cart/domain/mutable_cart.dart';
-import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
+import 'package:ecommerce_app/src/features/products/data/products_repository.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_service.g.dart';
 
@@ -18,25 +17,31 @@ class CartService {
   CartService(this.ref);
   final Ref ref;
 
+  AuthRepository get authRepository => ref.read(authRepositoryProvider);
+  RemoteCartRepository get remoteCartRepository =>
+      ref.read(remoteCartRepositoryProvider);
+  LocalCartRepository get localCartRepository =>
+      ref.read(localCartRepositoryProvider);
+
   /// fetch the cart from the local or remote repository
   /// depending on the user auth state
   Future<Cart> _fetchCart() {
-    final user = ref.read(authRepositoryProvider).currentUser;
+    final user = authRepository.currentUser;
     if (user != null) {
-      return ref.read(remoteCartRepositoryProvider).fetchCart(user.uid);
+      return remoteCartRepository.fetchCart(user.uid);
     } else {
-      return ref.read(localCartRepositoryProvider).fetchCart();
+      return localCartRepository.fetchCart();
     }
   }
 
   /// save the cart to the local or remote repository
   /// depending on the user auth state
   Future<void> _setCart(Cart cart) async {
-    final user = ref.read(authRepositoryProvider).currentUser;
+    final user = authRepository.currentUser;
     if (user != null) {
-      await ref.read(remoteCartRepositoryProvider).setCart(user.uid, cart);
+      await remoteCartRepository.setCart(user.uid, cart);
     } else {
-      await ref.read(localCartRepositoryProvider).setCart(cart);
+      await localCartRepository.setCart(cart);
     }
   }
 
@@ -63,13 +68,13 @@ class CartService {
   }
 }
 
-@Riverpod(keepAlive: true)
-CartService cartService(Ref ref) {
+@riverpod
+CartService cartService(CartServiceRef ref) {
   return CartService(ref);
 }
 
-@Riverpod(keepAlive: true)
-Stream<Cart> cart(Ref ref) {
+@riverpod
+Stream<Cart> cart(CartRef ref) {
   final user = ref.watch(authStateChangesProvider).value;
   if (user != null) {
     return ref.watch(remoteCartRepositoryProvider).watchCart(user.uid);
@@ -78,8 +83,8 @@ Stream<Cart> cart(Ref ref) {
   }
 }
 
-@Riverpod(keepAlive: true)
-int cartItemsCount(Ref ref) {
+@riverpod
+int cartItemsCount(CartItemsCountRef ref) {
   return ref.watch(cartProvider).maybeMap(
         data: (cart) => cart.value.items.length,
         orElse: () => 0,
@@ -87,7 +92,7 @@ int cartItemsCount(Ref ref) {
 }
 
 @riverpod
-double cartTotal(Ref ref) {
+double cartTotal(CartTotalRef ref) {
   final cart = ref.watch(cartProvider).value ?? const Cart();
   final productsList = ref.watch(productsListStreamProvider).value ?? [];
   if (cart.items.isNotEmpty && productsList.isNotEmpty) {
@@ -104,7 +109,7 @@ double cartTotal(Ref ref) {
 }
 
 @riverpod
-int itemAvailableQuantity(Ref ref, Product product) {
+int itemAvailableQuantity(ItemAvailableQuantityRef ref, Product product) {
   final cart = ref.watch(cartProvider).value;
   if (cart != null) {
     // get the current quantity for the given product in the cart

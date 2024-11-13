@@ -1,38 +1,39 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'package:ecommerce_app/src/constants/test_products.dart';
+import 'package:ecommerce_app/src/features/products/data/test_products.dart';
+import 'package:ecommerce_app/src/features/products/data/products_repository.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
 import 'package:ecommerce_app/src/utils/delay.dart';
 import 'package:ecommerce_app/src/utils/in_memory_store.dart';
 
-part 'fake_products_repository.g.dart';
-
-class FakeProductsRepository {
+class FakeProductsRepository implements ProductsRepository {
   FakeProductsRepository({this.addDelay = true});
   final bool addDelay;
 
   /// Preload with the default list of products when the app starts
   final _products = InMemoryStore<List<Product>>(List.from(kTestProducts));
 
-  List<Product> getProductsList() {
-    return _products.value;
-  }
-
-  Product? getProduct(String id) {
+  /// Get a product by ID.
+  /// This method is only used by some of the "fake" services in the app.
+  /// In real-world apps, remote data can only be obtained asynchronously.
+  Product? getProduct(ProductID id) {
     return _getProduct(_products.value, id);
   }
 
+  // Retrieve the products list as a [Future] (one-time read)
+  @override
   Future<List<Product>> fetchProductsList() async {
     return Future.value(_products.value);
   }
 
+  // Retrieve the products list as a [Stream] (for realtime updates)
+  @override
   Stream<List<Product>> watchProductsList() {
     return _products.stream;
   }
 
+  // Retrieve a specific product by ID
+  @override
   Stream<Product?> watchProduct(String id) {
     return watchProductsList().map((products) => _getProduct(products, id));
   }
@@ -53,6 +54,7 @@ class FakeProductsRepository {
   }
 
   /// Search for products where the title contains the search query
+  @override
   Future<List<Product>> searchProducts(String query) async {
     assert(
       _products.value.length <= 100,
@@ -69,46 +71,12 @@ class FakeProductsRepository {
   }
 
   static Product? _getProduct(List<Product> products, String id) {
+    // * This can also be implemented with [firstWhereOrNull] from this package:
+    // * https://api.flutter.dev/flutter/package-collection_collection/IterableExtension/firstWhereOrNull.html
     try {
       return products.firstWhere((product) => product.id == id);
     } catch (e) {
       return null;
     }
   }
-}
-
-@riverpod
-FakeProductsRepository productsRepository(Ref ref) {
-  // * Set addDelay to false for faster loading
-  return FakeProductsRepository(addDelay: false);
-}
-
-@riverpod
-Stream<List<Product>> productsListStream(Ref ref) {
-  final productsRepository = ref.watch(productsRepositoryProvider);
-  return productsRepository.watchProductsList();
-}
-
-@riverpod
-Future<List<Product>> productsListFuture(Ref ref) {
-  final productsRepository = ref.watch(productsRepositoryProvider);
-  return productsRepository.fetchProductsList();
-}
-
-@riverpod
-Stream<Product?> product(Ref ref, ProductID id) {
-  final productsRepository = ref.watch(productsRepositoryProvider);
-  return productsRepository.watchProduct(id);
-}
-
-@riverpod
-Future<List<Product>> productsListSearch(Ref ref, String query) async {
-  final link = ref.keepAlive();
-  // * keep previous search results in memory for 60 seconds
-  final timer = Timer(const Duration(seconds: 60), () {
-    link.close();
-  });
-  ref.onDispose(() => timer.cancel());
-  final productsRepository = ref.watch(productsRepositoryProvider);
-  return productsRepository.searchProducts(query);
 }

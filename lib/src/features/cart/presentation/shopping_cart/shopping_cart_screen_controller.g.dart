@@ -7,7 +7,7 @@ part of 'shopping_cart_screen_controller.dart';
 // **************************************************************************
 
 String _$shoppingCartScreenControllerHash() =>
-    r'8123dd3aaf0bf02858cb11556ecba6c16b72aedd';
+    r'24035b115aa5ceac6df133b59a198ade490d9d37';
 
 /// See also [ShoppingCartScreenController].
 @ProviderFor(ShoppingCartScreenController)
@@ -24,4 +24,4 @@ final shoppingCartScreenControllerProvider = AutoDisposeAsyncNotifierProvider<
 
 typedef _$ShoppingCartScreenController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
